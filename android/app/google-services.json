@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "1012984318961",
+    "project_id": "rnbp-1ef64",
+    "storage_bucket": "rnbp-1ef64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012984318961:android:28f8477138388091f0d250",
+        "android_client_info": {
+          "package_name": "com.slogup.reactnativeboilerplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012984318961-55hgpt95r6vku38cgv928q5ijgohkeul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slogup.reactnativeboilerplate",
+            "certificate_hash": "e99d6459c01d272bcb50ca0d8b5178fb22b4c1e4"
+          }
+        },
+        {
+          "client_id": "1012984318961-b61jluatbns5j22oh7htko9b3dg59djo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slogup.reactnativeboilerplate",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1012984318961-hfm7ek46i3abga5n6h8tdpvvvkbgu6dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcPr2fqEP7BWqeNga3ztIXZA-xUYoio8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012984318961-hfm7ek46i3abga5n6h8tdpvvvkbgu6dc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012984318961-ru8ckva2ints5bef893sbjn73pcjjufk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.slogup.reactnativeboilerplate"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012984318961:android:f9afff327aa0b14ff0d250",
+        "android_client_info": {
+          "package_name": "com.slogup.reactnativeboilerplate.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012984318961-iu6e5hegupqsgd88sju0pe52a8br5q33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slogup.reactnativeboilerplate.debug",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1012984318961-m0c2og605ti02koavo1meu95h38dj0ij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slogup.reactnativeboilerplate.debug",
+            "certificate_hash": "e99d6459c01d272bcb50ca0d8b5178fb22b4c1e4"
+          }
+        },
+        {
+          "client_id": "1012984318961-hfm7ek46i3abga5n6h8tdpvvvkbgu6dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcPr2fqEP7BWqeNga3ztIXZA-xUYoio8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012984318961-hfm7ek46i3abga5n6h8tdpvvvkbgu6dc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012984318961-ru8ckva2ints5bef893sbjn73pcjjufk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.slogup.reactnativeboilerplate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
