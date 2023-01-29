@@ -12,7 +12,7 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 import { themes } from '@src/constants';
-import { RootStackNavigator } from '@src/navigations';
+import { MainTabNavigator } from '@src/navigations';
 import useDynamicLink from './hooks/useDynamicLink';
 import useInitialize from './hooks/useInitialize';
 
@@ -29,7 +29,7 @@ const App: FunctionComponent = function App() {
   return (
     <ThemeProvider theme={themes}>
       <NavigationContainer>
-        <RootStackNavigator />
+        <MainTabNavigator />
       </NavigationContainer>
     </ThemeProvider>
   );

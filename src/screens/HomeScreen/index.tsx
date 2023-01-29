@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { icons, images, fonts } from '@src/assets';
-import { Typo } from '@src/components/atoms';
-import { colors, strings } from '@src/constants';
+import { fonts } from '@src/assets';
+
+import { SafeContainer } from '@src/components/atoms';
+import Header from '@src/components/atoms/Header';
+import { colors } from '@src/constants';
 import { MainTabParams } from '@src/navigations';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -12,18 +14,13 @@ interface Props {}
 const HomeScreen: FunctionComponent<Props> = function HomeScreen() {
   const route = useRoute<RouteProp<MainTabParams, 'Home'>>();
   return (
-    <View>
-      <Image source={icons.APP_LOGO} style={styles.image} />
-      <Image source={images.GENESIS} style={styles.image} />
-      <Text style={styles.text}>{'HomeScreen'}</Text>
-      <Text style={styles.text}>{route.params?.message}</Text>
-      <Typo type={'H1'} style={styles.title}>
-        {strings.APP_NAME}
-      </Typo>
-      <Typo type={'BODY1'} style={styles.body}>
-        {'SUBTITLE'}
-      </Typo>
-    </View>
+    <SafeContainer>
+      <Header title="home" />
+      <View>
+        <Text style={styles.text}>{'HomeScreen'}</Text>
+        <Text style={styles.text}>{route.params?.message}</Text>
+      </View>
+    </SafeContainer>
   );
 };
 
