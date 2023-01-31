@@ -1,40 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { FunctionComponent } from 'react';
-import { View, Text, Button } from 'react-native';
-import {
-  MainTabParams,
-  useScreenNavigation,
-  useScreenRoute,
-} from '@src/navigations';
+import { View, Text } from 'react-native';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const MyScreen: FunctionComponent<Props> = function MyScreen() {
   /* navigation & route */
-  const navigation = useScreenNavigation();
-  const { params } = useScreenRoute<'Feed', MainTabParams>();
 
   return (
     <View style={{ paddingTop: 60 }}>
       <Text>{'MyScreen'}</Text>
-      <Text>{params?.message}</Text>/rules/no-unsafe-return
-      <Button
-        onPress={() =>
-          navigation.navigate('SignIn', { message: 'FROM MY SCREEN' })
-        }
-        title={'GO TO SIGN IN'}
-      />
-      <Button
-        onPress={() =>
-          navigation.navigate('MainTab', {
-            screen: 'Feed',
-            params: { message: 'FROM MY SCREEN' },
-          })
-        }
-        title={'GO TO HOME'}
-      />
     </View>
   );
 };
