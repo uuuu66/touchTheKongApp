@@ -35,7 +35,7 @@ const MainTabNavigator = function MainTabNavigator() {
         headerShown: false,
       }}
     >
-      <Tab.Screen name={'Home'} component={HomeScreen} />
+      <Tab.Screen name={'Feed'} component={HomeScreen} />
       <Tab.Screen name={'My'} component={MyScreen} />
     </Tab.Navigator>
   );

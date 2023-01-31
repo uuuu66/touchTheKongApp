@@ -5,22 +5,27 @@ import {
 } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export type RootStackParams = {
+export type FeedStackParams = {
   MainTab: MainTabNavigationScreenParams;
+  SignIn: { message: string } | undefined;
+  SignUp: { message: string } | undefined;
+};
+export type HomeStackParams = {
+  Home: MainTabNavigationScreenParams;
   SignIn: { message: string } | undefined;
   SignUp: { message: string } | undefined;
 };
 
 export type MainTabParams = {
-  Home: { message: string } | undefined;
+  Feed: { message: string } | undefined;
   My: { message: string } | undefined;
 };
 
-export type RootStackNavigationProp =
-  NativeStackNavigationProp<RootStackParams>;
+export type FeedStackNavigationProp =
+  NativeStackNavigationProp<FeedStackParams>;
 
 export type MainTabNavigationProp = CompositeNavigationProp<
-  RootStackNavigationProp,
+  FeedStackNavigationProp,
   BottomTabNavigationProp<MainTabParams>
 >;
 
