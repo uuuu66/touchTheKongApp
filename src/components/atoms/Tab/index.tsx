@@ -24,9 +24,10 @@ const Tab: FunctionComponent<TabProps> = function Tab(props) {
       {items.map(val => (
         <TabButton
           style={tabStyle.button}
-          size="medium"
+          size="small"
           key={val.value}
           label={val.label}
+          icon={icons.KAKAO}
           onPress={() => {
             handlePressTabButton(val.value);
           }}

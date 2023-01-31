@@ -19,6 +19,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   contentsStyle?: StyleProp<ViewStyle>;
   onPress: () => void;
+  backgroundColor?: string;
 }
 
 const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
@@ -26,6 +27,7 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
   icon,
   style,
   windowWidth = 0,
+  backgroundColor = colors.BLUE,
   tabHeight = 0,
   contentsStyle,
   onPress,
@@ -42,7 +44,7 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
     transform: [{ rotate: '90deg' }],
   };
   const ButtonBackGroundStyle: StyleProp<ViewStyle> = {
-    backgroundColor: colors.PINK,
+    backgroundColor,
     width: tabHeight + 20,
     height: tabHeight + 20,
   };

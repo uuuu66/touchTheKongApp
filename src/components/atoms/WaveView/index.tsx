@@ -5,9 +5,12 @@ import {
   ViewStyle,
   StyleSheet,
   Pressable,
+  Dimensions,
+  Text,
 } from 'react-native';
 import OceanWave from '@src/components/animations/OceanWave';
 
+import SlideIn from '@src/components/animations/SlideIn';
 import { colors } from '@src/constants';
 
 interface Props {
@@ -26,6 +29,8 @@ const waveBorderRadius = {
   borderTopEndRadius: 277,
   borderTopStartRadius: 288,
 };
+const { height: windowheight, width: windowWidth } = Dimensions.get('window');
+
 const WaveView: FunctionComponent<Props> = function WaveView() {
   const [isOn, setIsOn] = useState<boolean>(false);
   const wave1Position = useMemo<StyleProp<ViewStyle>>(
@@ -73,6 +78,24 @@ const WaveView: FunctionComponent<Props> = function WaveView() {
   );
   const wave4BorderPosition = useMemo<StyleProp<ViewStyle>>(
     () => ({ position: 'absolute', right: 90, bottom: -250 }),
+    [],
+  );
+  const SlideInViewBottomToTopPositon = useMemo<StyleProp<ViewStyle>>(
+    () => ({
+      width: windowWidth,
+      height: windowheight,
+      backgroundColor: colors.BLUE,
+      transform: [{ translateY: windowheight }],
+    }),
+    [],
+  );
+  const SlideInViewTopToBottomPositon = useMemo<StyleProp<ViewStyle>>(
+    () => ({
+      width: windowWidth,
+      height: windowheight,
+      backgroundColor: colors.YELLOW,
+      transform: [{ translateY: -200 }],
+    }),
     [],
   );
   return (
@@ -153,6 +176,23 @@ const WaveView: FunctionComponent<Props> = function WaveView() {
               backgroundColor: 'green',
             },
           ]}
+        />
+        <SlideIn
+          initialPosition={-windowheight}
+          destination={0}
+          direction="B"
+          isOn={isOn}
+          delay={700}
+          initialValue={0}
+          positionStyle={SlideInViewTopToBottomPositon}
+        />
+        <SlideIn
+          initialPosition={windowheight}
+          destination={0}
+          direction="T"
+          isOn={isOn}
+          initialValue={0}
+          positionStyle={SlideInViewBottomToTopPositon}
         />
       </View>
     </Pressable>
