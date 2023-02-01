@@ -5,7 +5,9 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import CustomTab from '@src/components/atoms/Tab';
-import HomeScreen from '@src/screens/HomeScreen';
+import FeedScreen from '@src/screens/FeedStackScreen';
+
+import MapScreen from '@src/screens/MapScreen';
 import MyScreen from '@src/screens/MyScreen';
 import { MainTabParams } from '../types';
 
@@ -21,7 +23,9 @@ const MainTabNavigator = function MainTabNavigator() {
       <CustomTab
         onSelect={onSelect}
         items={[
-          { label: '홈', value: 'Home' },
+          { label: '홈', value: 'Feed' },
+          { label: '지도', value: 'Map' },
+          { label: '인기', value: 'Famous' },
           { label: '마이', value: 'My' },
         ]}
       />
@@ -35,8 +39,9 @@ const MainTabNavigator = function MainTabNavigator() {
         headerShown: false,
       }}
     >
-      <Tab.Screen name={'Feed'} component={HomeScreen} />
+      <Tab.Screen name={'Feed'} component={FeedScreen} />
       <Tab.Screen name={'My'} component={MyScreen} />
+      <Tab.Screen name={'Map'} component={MapScreen} />
     </Tab.Navigator>
   );
 };

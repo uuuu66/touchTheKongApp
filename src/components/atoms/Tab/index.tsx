@@ -2,9 +2,11 @@
 import React, { FunctionComponent } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 
+import { Camera } from 'react-native-vision-camera';
 import { icons } from '@src/assets';
 import TabButton from '@src/components/molecules/TabButton';
 import TabMiddleButton from '@src/components/molecules/TabMiddleButton';
+import { colors } from '@src/constants';
 import { DataOption } from '@src/interfaces';
 
 interface TabProps {
@@ -19,11 +21,16 @@ const Tab: FunctionComponent<TabProps> = function Tab(props) {
   const handlePressTabButton = (selectedValue: any) => {
     if (onSelect) onSelect(selectedValue);
   };
+  const handlePressMiddleButton = async () => {
+    const cameraPermission = await Camera.getCameraPermissionStatus();
+    const microphonePermission = await Camera.getMicrophonePermissionStatus();
+    console.log(cameraPermission, microphonePermission);
+  };
   return (
     <View style={tabStyle.constainer}>
       {items.map(val => (
         <TabButton
-          style={tabStyle.button}
+          style={[tabStyle.button]}
           size="small"
           key={val.value}
           label={val.label}
@@ -35,8 +42,9 @@ const Tab: FunctionComponent<TabProps> = function Tab(props) {
         />
       ))}
       <TabMiddleButton
-        onPress={() => {}}
-        icon={icons.APP_LOGO}
+        onPress={handlePressMiddleButton}
+        icon={icons.CAMERA}
+        backgroundColor={colors.PRIMARY3}
         windowWidth={windowWidth}
         tabHeight={tabHeight}
       />
@@ -46,9 +54,13 @@ const Tab: FunctionComponent<TabProps> = function Tab(props) {
 
 export default Tab;
 const tabStyle = StyleSheet.create({
-  constainer: { height: tabHeight, width: '100%', flexDirection: 'row' },
+  constainer: {
+    height: tabHeight + 40,
+    width: '100%',
+    flexDirection: 'row',
+  },
   indicator: { height: 3 },
-  button: { height: tabHeight, flex: 1 },
+  button: { height: tabHeight + 40, flex: 1 },
 
   label: { fontSize: 13 },
 });

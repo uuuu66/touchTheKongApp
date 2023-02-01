@@ -2,6 +2,7 @@ import APPLE_FILL_ACTIVATED from './apple-fill-activated.png';
 import APPLE_FILL_INACTIVATED from './apple-fill-inactivated.png';
 import APPLE_WHITE from './apple-white.png';
 import APPLE from './apple.png';
+import CAMERA from './camera.png';
 import GOOGLE_FILL_ACTIVATED from './google-fill-activated.png';
 import GOOGLE_FILL_INACTIVATED from './google-fill-inactivated.png';
 import GOOGLE from './google.png';
@@ -28,4 +29,5 @@ export default {
   APPLE_WHITE,
   APPLE_FILL_ACTIVATED,
   APPLE_FILL_INACTIVATED,
+  CAMERA,
 } as const;

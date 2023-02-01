@@ -9,12 +9,12 @@
  */
 
 import React, { FunctionComponent, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
-import { themes } from '@src/constants';
+import { colors, themes } from '@src/constants';
 import useDynamicLink from './hooks/useDynamicLink';
 import useInitialize from './hooks/useInitialize';
-import HomeStackNavigator from './navigations/HomeStackNavigator';
+import HomeStackNavigator from './navigations/RootStackNavigator';
 
 const App: FunctionComponent = function App() {
   useInitialize();
@@ -28,7 +28,12 @@ const App: FunctionComponent = function App() {
 
   return (
     <ThemeProvider theme={themes}>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          ...DefaultTheme,
+          colors: { ...DefaultTheme.colors, background: colors.PRIMARY3 },
+        }}
+      >
         <HomeStackNavigator />
       </NavigationContainer>
     </ThemeProvider>

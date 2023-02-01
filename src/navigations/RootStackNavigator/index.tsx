@@ -8,11 +8,14 @@ import Header from '@src/components/atoms/Header';
 
 import HomeScreen from '@src/screens/FeedScreen';
 
+import SignInScreen from '@src/screens/SignInScreen';
+import SignUpScreen from '@src/screens/SignUpScreen';
+import MainTabNavigator from '../MainTabNavigator';
 import { RootStackParams } from '../types';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
-const FeedStackNavigator: FunctionComponent = function FeedStackNavigator() {
+const RootStackNavigator: FunctionComponent = function RootStackNavigator() {
   const renderHeader = useCallback(
     (props: NativeStackHeaderProps, title?: string) => {
       return <Header title={title} />;
@@ -21,33 +24,35 @@ const FeedStackNavigator: FunctionComponent = function FeedStackNavigator() {
   );
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        header: props => renderHeader(props, ''),
+      }}
+    >
       <Stack.Group>
-        {/* <Stack.Screen
-          name={'Feed'}
-          component={FeedScreen}
+        <Stack.Screen
+          name={'SignIn'}
+          component={SignInScreen}
           options={{
             headerShown: false,
           }}
-        /> */}
+        />
         <Stack.Screen
           name={'Home'}
           component={HomeScreen}
           options={{
-            header: props => renderHeader(props, '홈'),
-            // headerShown: false,
+            headerShown: false,
           }}
         />
-      </Stack.Group>
-      {/* <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
-          name={'SignInModal'}
-          component={ModalScreen}
+          name={'MainTab'}
+          component={MainTabNavigator}
           options={{ headerShown: false }}
         />
-      </Stack.Group> */}
+        <Stack.Screen name={'SignUp'} component={SignUpScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
 
-export default FeedStackNavigator;
+export default RootStackNavigator;

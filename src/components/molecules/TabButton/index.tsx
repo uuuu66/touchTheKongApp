@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import { Pressable, Typo } from '@src/components/atoms';
+import { colors } from '@src/constants';
 import { ButtonSize, ButtonType } from '../Button/types';
 import { getIconStyle, getLabelStyle } from '../Button/utils';
 
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    backgroundColor: colors.GRAY1,
   },
 });
 

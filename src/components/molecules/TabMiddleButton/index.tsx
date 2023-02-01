@@ -33,7 +33,7 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
   onPress,
 }) {
   const ButtonPositionStyle: StyleProp<ViewStyle> = {
-    top: (-1 * tabHeight) / 2,
+    top: -1 * (tabHeight / 2),
     left: windowWidth / 2 - tabHeight / 2,
   };
   const ButtonStyle: StyleProp<ViewStyle> = {
@@ -53,8 +53,8 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
     left: windowWidth / 2 - (tabHeight + 20) / 2,
   };
   const IconStyle: StyleProp<ImageStyle> = {
-    width: tabHeight / 2,
-    height: tabHeight / 2,
+    width: tabHeight / 1.5,
+    height: tabHeight / 1.5,
   };
   return (
     <>
@@ -94,5 +94,4 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 });
-
 export default TabMiddleButton;

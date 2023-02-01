@@ -9,13 +9,16 @@
 -->
 <plist version="1.0">
     <dict>
-    <key>AppSecret</key>
-    <string>76749fac-363c-4cce-bff8-865f1ff526c0</string>
-    <key>NSCameraUsageDescription</key>
-    <string>$(PRODUCT_NAME) needs access to your Camera.</string>
-
-    <!-- optionally, if you want to record audio: -->
-    <key>NSMicrophoneUsageDescription</key>
-    <string>$(PRODUCT_NAME) needs access to your Microphone.</string>
+        <key>AppSecret</key>
+        <string>76749fac-363c-4cce-bff8-865f1ff526c0</string>
+        <key>NSCameraUsageDescription</key>
+        <string>$(PRODUCT_NAME) needs access to your Camera.</string>
+        <!-- optionally, if you want to record audio: -->
+        <key>NSMicrophoneUsageDescription</key>
+        <string>$(PRODUCT_NAME) needs access to your Microphone.</string>
+         <key>UIStatusBarHidden</key>
+        <true/>
+        <key>UIViewControllerBasedStatusBarAppearance</key>
+        <false/>
     </dict>
 </plist>

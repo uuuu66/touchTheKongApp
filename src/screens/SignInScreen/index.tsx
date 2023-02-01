@@ -1,43 +1,74 @@
-import React, { FunctionComponent } from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import React, { FunctionComponent, useState } from 'react';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Text } from '@rneui/base';
 import { icons } from '@src/assets';
+import SlideIn from '@src/components/animations/SlideIn';
 import { SafeContainer, Typo } from '@src/components/atoms';
-import { colors, strings } from '@src/constants';
-import { SOCIAL_LIST } from '@src/data/Social';
-import { useScreenNavigation } from '@src/navigations';
-import * as Styled from './styles';
+import WaveView from '@src/components/atoms/WaveView';
+import { Button } from '@src/components/molecules';
+import SocialButton from '@src/components/molecules/SocialButton';
+import { colors } from '@src/constants';
+import { useRootScreenNavigation } from '@src/navigations';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
+const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
-  const navigation = useScreenNavigation();
-
-  const renderSocialButtons = () =>
-    SOCIAL_LIST.map(social => (
-      <Styled.SocialButton
-        key={social}
-        social={social}
-        onPress={() => navigation.navigate('SignUp')}
-        style={styles.button}
-        topGap={social === 'naver' ? 0 : 16}
-        bottomGap={social === 'apple' ? 24 : 0}
-      />
-    ));
+  const navigation = useRootScreenNavigation();
+  const [isOn, setIsOn] = useState<boolean>(false);
+  const openSignInModal = () => {
+    setTimeout(() => {
+      setIsOn(true);
+    }, 100);
+  };
 
   return (
     <SafeContainer>
-      <View style={styles.topContainer}>
-        <Image source={icons.APP_LOGO} style={styles.logo} />
-        <Typo style={styles.labelWrapper}>
-          <Typo type={'BODY4_R'}>{strings.WELCOME_MESSAGE_LEFT}&nbsp;</Typo>
-          <Typo type={'H5'} style={styles.labelAccent}>
-            {strings.WELCOME_MESSAGE_CENTER}
-          </Typo>
-          <Typo type={'BODY4_R'}>&nbsp;{strings.WELCOME_MESSAGE_RIGHT}</Typo>
-        </Typo>
-      </View>
-      {renderSocialButtons()}
+      <WaveView actionAfterAnimation={openSignInModal}>
+        <View style={[styles.topContainer]}>
+          <Text />
+        </View>
+
+        <SlideIn
+          direction="T"
+          initialValue={0}
+          isOn={isOn}
+          initialPosition={-windowHeight}
+          destination={40}
+          positionStyle={[styles.slideIn]}
+        >
+          <View style={[styles.card]}>
+            <Image source={icons.APPLE} style={styles.logo} />
+            <Typo type="H1" style={{ textAlign: 'center', marginBottom: 20 }}>
+              f
+            </Typo>
+
+            <SocialButton
+              social={'google'}
+              style={[styles.button]}
+              onPress={() => {
+                navigation.navigate('MainTab');
+              }}
+            />
+
+            <SocialButton
+              social={'kakao'}
+              style={[styles.button]}
+              onPress={() => {
+                navigation.navigate('MainTab');
+              }}
+            />
+            <Button
+              label="sss"
+              style={[styles.button]}
+              onPress={() => {
+                navigation.navigate('MainTab');
+              }}
+            />
+          </View>
+        </SlideIn>
+      </WaveView>
     </SafeContainer>
   );
 };
@@ -47,10 +78,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: colors.PRIMARY3,
   },
   logo: {
-    width: 88,
-    height: 80,
+    width: 200,
+    height: 200,
   },
   labelWrapper: {
     marginTop: 24,
@@ -59,7 +93,33 @@ const styles = StyleSheet.create({
     color: colors.PRIMARY3,
   },
   button: {
-    marginHorizontal: 20,
+    marginBottom: 20,
+    width: 300,
+  },
+  card: {
+    borderRadius: 20,
+    backgroundColor: 'white',
+    width: windowWidth - 40,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 100,
+    paddingBottom: 100,
+  },
+
+  slideIn: {
+    transform: [{ translateY: windowHeight + 1000 }],
+    position: 'absolute',
+
+    left: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 4,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 8.12,
+    elevation: 16,
   },
 });
 
