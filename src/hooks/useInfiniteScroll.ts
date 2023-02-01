@@ -27,7 +27,7 @@ const useInfiniteScroll = () => {
       setLoading(true);
       if (ref.current === false) {
         ref.current = true;
-        await asyncFunc()
+        asyncFunc()
           .then(() => {
             ref.current = false;
             setLoading(false);
