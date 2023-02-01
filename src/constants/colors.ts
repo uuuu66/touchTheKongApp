@@ -1,4 +1,4 @@
-const COLOR_PRIMARY = '#6A1CFC';
+const COLOR_PRIMARY = '#FF2D55';
 const COLOR_SECONDARY = '#2FDED4';
 const COLOR_WHITE = '#FFFFFF';
 

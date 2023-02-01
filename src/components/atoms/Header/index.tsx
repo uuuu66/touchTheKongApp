@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Header as CustomHeader, HeaderProps } from '@rneui/themed';
-import icons from '@src/assets/icons';
 import { colors } from '@src/constants';
 
 interface CustomHeaderProps extends HeaderProps {
@@ -16,12 +15,9 @@ const Header: FunctionComponent<CustomHeaderProps> = function Header(props) {
     <CustomHeader
       statusBarProps={{
         barStyle: 'light-content',
-        backgroundColor: colors.BLUE,
       }}
       centerComponent={{
-        children: (
-          <Image source={icons.APP_LOGO} style={[{ width: 40, height: 40 }]} />
-        ),
+        children: <Text style={[styles.heading]}>피드</Text>,
         style: [styles.heading],
       }}
       containerStyle={styles.headerContainer}
@@ -32,7 +28,7 @@ const Header: FunctionComponent<CustomHeaderProps> = function Header(props) {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: colors.GRAY1,
+    backgroundColor: colors.PRIMARY3,
     justifyContent: 'space-around',
     width: '100%',
     color: colors.RED,

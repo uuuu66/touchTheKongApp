@@ -44,7 +44,7 @@ const Tab: FunctionComponent<TabProps> = function Tab(props) {
       <TabMiddleButton
         onPress={handlePressMiddleButton}
         icon={icons.CAMERA}
-        backgroundColor={colors.PRIMARY3}
+        backgroundColor={colors.GRAY1}
         windowWidth={windowWidth}
         tabHeight={tabHeight}
       />
@@ -60,7 +60,7 @@ const tabStyle = StyleSheet.create({
     flexDirection: 'row',
   },
   indicator: { height: 3 },
-  button: { height: tabHeight + 40, flex: 1 },
+  button: { height: tabHeight + 40, flex: 1, backgroundColor: colors.PRIMARY3 },
 
   label: { fontSize: 13 },
 });

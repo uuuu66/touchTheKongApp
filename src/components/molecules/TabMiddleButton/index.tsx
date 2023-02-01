@@ -37,7 +37,7 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
     left: windowWidth / 2 - tabHeight / 2,
   };
   const ButtonStyle: StyleProp<ViewStyle> = {
-    backgroundColor: 'white',
+    backgroundColor: colors.PRIMARY3,
     width: tabHeight,
     height: tabHeight,
 

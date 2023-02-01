@@ -1,8 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { Text } from '@rneui/base';
 import { icons } from '@src/assets';
-import SlideIn from '@src/components/animations/SlideIn';
+import SlideIn from '@src/components/animations/SlideInY';
 import { SafeContainer, Typo } from '@src/components/atoms';
 import WaveView from '@src/components/atoms/WaveView';
 import { Button } from '@src/components/molecules';
@@ -22,7 +29,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
       setIsOn(true);
     }, 100);
   };
-
+  const style: StyleProp<ViewStyle> = {
+    transform: [{ rotate: '270deg' }, { translateY: 1000 }],
+  };
   return (
     <SafeContainer>
       <WaveView actionAfterAnimation={openSignInModal}>
@@ -41,31 +50,65 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           <View style={[styles.card]}>
             <Image source={icons.APPLE} style={styles.logo} />
             <Typo type="H1" style={{ textAlign: 'center', marginBottom: 20 }}>
-              f
+              집고.길고.
             </Typo>
-
-            <SocialButton
-              social={'google'}
-              style={[styles.button]}
-              onPress={() => {
-                navigation.navigate('MainTab');
-              }}
-            />
-
-            <SocialButton
-              social={'kakao'}
-              style={[styles.button]}
-              onPress={() => {
-                navigation.navigate('MainTab');
-              }}
-            />
-            <Button
-              label="sss"
-              style={[styles.button]}
-              onPress={() => {
-                navigation.navigate('MainTab');
-              }}
-            />
+            <SlideIn
+              initialValue={0}
+              positionStyle={[style]}
+              isOn={isOn}
+              initialPosition={1000}
+              delay={1100}
+              destination={0}
+              direction="B"
+              isRotateAfterSlideIn
+              duration={500}
+            >
+              <SocialButton
+                social={'google'}
+                style={[styles.button]}
+                onPress={() => {
+                  navigation.navigate('MainTab');
+                }}
+              />
+            </SlideIn>
+            <SlideIn
+              positionStyle={[style]}
+              initialValue={0}
+              isOn={isOn}
+              initialPosition={1000}
+              delay={1300}
+              destination={0}
+              direction="B"
+              isRotateAfterSlideIn
+              duration={500}
+            >
+              <SocialButton
+                social={'kakao'}
+                style={[styles.button]}
+                onPress={() => {
+                  navigation.navigate('MainTab');
+                }}
+              />
+            </SlideIn>
+            <SlideIn
+              positionStyle={[style]}
+              initialValue={0}
+              initialPosition={1000}
+              isOn={isOn}
+              delay={1400}
+              destination={0}
+              direction="B"
+              isRotateAfterSlideIn
+              duration={500}
+            >
+              <Button
+                label="sss"
+                style={[styles.button]}
+                onPress={() => {
+                  navigation.navigate('MainTab');
+                }}
+              />
+            </SlideIn>
           </View>
         </SlideIn>
       </WaveView>

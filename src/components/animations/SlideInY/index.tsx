@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useMemo, useRef } from 'react';
 import { StyleProp, ViewStyle, Animated, Easing } from 'react-native';
 
-type Direction = 'TL' | 'TR' | 'T' | 'R' | 'L' | 'BR' | 'BL' | 'B';
+type Direction = 'T' | 'B';
 interface Props {
   positionStyle?: StyleProp<ViewStyle>;
   initialValue: number;
@@ -10,6 +10,10 @@ interface Props {
   initialPosition?: number;
   destination?: number;
   delay?: number;
+  duration?: number;
+  afterRotateDuration?: number;
+  isRotateAfterSlideIn?: boolean;
+  afterRotateDeg?: string;
 }
 
 const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
@@ -22,27 +26,17 @@ const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
     destination,
     initialPosition,
     delay = 300,
+    duration = 1000,
+    isRotateAfterSlideIn = false,
+    afterRotateDeg,
+    afterRotateDuration,
   } = props;
   const animationValue = useRef(new Animated.Value(initialValue || 0)).current;
-
+  const rotateAfterSlideValue = useRef(
+    new Animated.Value(initialValue || 0),
+  ).current;
   const directionPoints = useMemo<string>(() => {
     switch (direction) {
-      case 'TR':
-        return '45deg';
-      case 'TL':
-        return '-45deg';
-      case 'T':
-        return '0deg';
-      case 'L':
-        return '90deg';
-      case 'R':
-        return '270deg';
-      case 'BR':
-        return '135deg';
-      case 'B':
-        return '0deg';
-      case 'BL':
-        return '225deg';
       default:
         return '0deg';
     }
@@ -54,6 +48,10 @@ const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
       destination === 0 ? 0 : destination || 0,
     ],
   });
+  const rocateAfterSlideIn = rotateAfterSlideValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [directionPoints, afterRotateDeg || '0deg'],
+  });
   useEffect(() => {
     if (isOn) {
       Animated.timing(animationValue, {
@@ -61,10 +59,26 @@ const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
         easing: Easing.cubic,
         useNativeDriver: true,
         delay,
-        duration: 1000,
+        duration,
       }).start();
+      if (isRotateAfterSlideIn)
+        Animated.timing(rotateAfterSlideValue, {
+          toValue: 1,
+          easing: Easing.cubic,
+          useNativeDriver: true,
+          delay: delay + duration,
+          duration: afterRotateDuration || duration || 100,
+        }).start();
     }
-  }, [isOn, delay, animationValue]);
+  }, [
+    isOn,
+    delay,
+    animationValue,
+    rotateAfterSlideValue,
+    isRotateAfterSlideIn,
+    duration,
+    afterRotateDuration,
+  ]);
 
   return (
     <Animated.View
@@ -74,6 +88,7 @@ const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
           transform: [
             { rotate: directionPoints },
             { translateY: viewLocation },
+            { rotate: rocateAfterSlideIn },
           ],
         },
       ]}

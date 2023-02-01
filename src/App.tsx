@@ -31,7 +31,7 @@ const App: FunctionComponent = function App() {
       <NavigationContainer
         theme={{
           ...DefaultTheme,
-          colors: { ...DefaultTheme.colors, background: colors.PRIMARY3 },
+          colors: { ...DefaultTheme.colors, background: colors.GRAY1 },
         }}
       >
         <HomeStackNavigator />

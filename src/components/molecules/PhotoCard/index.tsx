@@ -23,7 +23,9 @@ const PhotoCard: FunctionComponent<Props> = function PhotoCard(props) {
   const { style, title, icon } = props;
   return (
     <Card title={title} style={[style, { marginBottom: 20 }, styles.container]}>
-      <Image style={styles.image} source={icon || icons.CAMERA} />
+      <View style={[styles.imageWrapper]}>
+        <Image style={styles.image} source={icon || icons.APP_LOGO} />
+      </View>
       <View style={[styles.container]}>
         <Typo>sss</Typo>
       </View>
@@ -34,9 +36,16 @@ const PhotoCard: FunctionComponent<Props> = function PhotoCard(props) {
 export default PhotoCard;
 
 const styles = StyleSheet.create({
-  image: {
-    borderColor: colors.GRAY13,
-    borderWidth: 2,
+  image: { width: '100%', height: '100%' },
+  imageWrapper: {
+    shadowColor: colors.GRAY12,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 6.27,
+    elevation: 10,
     height: 300,
     width: 300,
   },
