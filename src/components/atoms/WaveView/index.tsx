@@ -42,48 +42,48 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
   const wave1Position = useMemo<StyleProp<ViewStyle>>(
     () => ({
       position: 'absolute',
-      right: -400,
-      top: -300,
+      left: '40%',
+      bottom: '45%',
     }),
     [],
   );
   const wave1BorderPosition = useMemo<StyleProp<ViewStyle>>(() => {
     return {
       position: 'absolute',
-      right: -400,
-      top: -300,
+      left: '30%',
+      bottom: '45%',
     };
   }, []);
   const wave2Position = useMemo<StyleProp<ViewStyle>>(
     () => ({
       position: 'absolute',
-      left: -400,
-      top: -300,
+      right: '50%',
+      bottom: '45%',
     }),
     [],
   );
   const wave2BorderPosition = useMemo<StyleProp<ViewStyle>>(
     () => ({
       position: 'absolute',
-      left: -400,
-      top: -300,
+      right: '40%',
+      bottom: '45%',
     }),
     [],
   );
   const wave3Position = useMemo<StyleProp<ViewStyle>>(
-    () => ({ position: 'absolute', left: 100, bottom: -250 }),
+    () => ({ position: 'absolute', left: '50%', top: '45%' }),
     [],
   );
   const wave3BorderPosition = useMemo<StyleProp<ViewStyle>>(
-    () => ({ position: 'absolute', left: 100, bottom: -250 }),
+    () => ({ position: 'absolute', left: '46%', top: '40%' }),
     [],
   );
   const wave4Position = useMemo<StyleProp<ViewStyle>>(
-    () => ({ position: 'absolute', right: 100, bottom: -250 }),
+    () => ({ position: 'absolute', right: '50%', top: '45%' }),
     [],
   );
   const wave4BorderPosition = useMemo<StyleProp<ViewStyle>>(
-    () => ({ position: 'absolute', right: 90, bottom: -250 }),
+    () => ({ position: 'absolute', right: '45%', top: '43%' }),
     [],
   );
   useEffect(() => {

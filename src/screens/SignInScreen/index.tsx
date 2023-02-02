@@ -1,16 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
-import { Text } from '@rneui/base';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
+
 import { icons } from '@src/assets';
 import SlideIn from '@src/components/animations/SlideInY';
-import { SafeContainer, Typo } from '@src/components/atoms';
+import { SafeContainer } from '@src/components/atoms';
 import WaveView from '@src/components/atoms/WaveView';
 import { Button } from '@src/components/molecules';
 import SocialButton from '@src/components/molecules/SocialButton';
@@ -20,7 +13,7 @@ import { useRootScreenNavigation } from '@src/navigations';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
-const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
+const { width: windowWidth } = Dimensions.get('window');
 const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
   const navigation = useRootScreenNavigation();
   const [isOn, setIsOn] = useState<boolean>(false);
@@ -29,40 +22,33 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
       setIsOn(true);
     }, 100);
   };
-  const style: StyleProp<ViewStyle> = {
-    transform: [{ rotate: '270deg' }, { translateY: 1000 }],
-  };
+
   return (
     <SafeContainer>
       <WaveView actionAfterAnimation={openSignInModal}>
         <View style={[styles.topContainer]}>
-          <Text />
-        </View>
-
-        <SlideIn
-          direction="T"
-          initialValue={0}
-          isOn={isOn}
-          initialPosition={-windowHeight}
-          destination={40}
-          positionStyle={[styles.slideIn]}
-        >
-          <View style={[styles.card]}>
-            <Image source={icons.APPLE} style={styles.logo} />
-            <Typo type="H1" style={{ textAlign: 'center', marginBottom: 20 }}>
-              집고.길고.
-            </Typo>
-            <SlideIn
-              initialValue={0}
-              positionStyle={[style]}
-              isOn={isOn}
-              initialPosition={1000}
-              delay={1100}
-              destination={0}
-              direction="B"
-              isRotateAfterSlideIn
-              duration={500}
-            >
+          <SlideIn
+            direction="T"
+            isOn={isOn}
+            duration={3000}
+            initialValue={0}
+            initialPosition={1200}
+            destination={0}
+          >
+            <View style={[styles.card, { backgroundColor: colors.GREEN }]}>
+              <Image source={icons.APPLE} style={styles.logo} />
+            </View>
+          </SlideIn>
+          <SlideIn
+            direction="T"
+            isOn={isOn}
+            delay={1000}
+            duration={3000}
+            initialValue={0}
+            initialPosition={-1200}
+            destination={10}
+          >
+            <View style={[styles.card, { backgroundColor: colors.BLUE }]}>
               <SocialButton
                 social={'google'}
                 style={[styles.button]}
@@ -70,18 +56,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
                   navigation.navigate('MainTab');
                 }}
               />
-            </SlideIn>
-            <SlideIn
-              positionStyle={[style]}
-              initialValue={0}
-              isOn={isOn}
-              initialPosition={1000}
-              delay={1300}
-              destination={0}
-              direction="B"
-              isRotateAfterSlideIn
-              duration={500}
-            >
+
               <SocialButton
                 social={'kakao'}
                 style={[styles.button]}
@@ -89,18 +64,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
                   navigation.navigate('MainTab');
                 }}
               />
-            </SlideIn>
-            <SlideIn
-              positionStyle={[style]}
-              initialValue={0}
-              initialPosition={1000}
-              isOn={isOn}
-              delay={1400}
-              destination={0}
-              direction="B"
-              isRotateAfterSlideIn
-              duration={500}
-            >
+
               <Button
                 label="sss"
                 style={[styles.button]}
@@ -108,9 +72,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
                   navigation.navigate('MainTab');
                 }}
               />
-            </SlideIn>
-          </View>
-        </SlideIn>
+            </View>
+          </SlideIn>
+        </View>
       </WaveView>
     </SafeContainer>
   );
@@ -143,18 +107,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: 'white',
     width: windowWidth - 40,
+
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 100,
-    paddingBottom: 100,
+    paddingTop: 20,
   },
 
   slideIn: {
-    transform: [{ translateY: windowHeight + 1000 }],
-    position: 'absolute',
-
-    left: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 4,
