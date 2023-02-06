@@ -16,7 +16,7 @@ interface Props {
   afterRotateDeg?: string;
 }
 
-const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
+const SlideY: FunctionComponent<Props> = function SlideY(props) {
   const {
     initialValue,
     children,
@@ -98,4 +98,4 @@ const SlideIn: FunctionComponent<Props> = function SlideIn(props) {
   );
 };
 
-export default SlideIn;
+export default SlideY;

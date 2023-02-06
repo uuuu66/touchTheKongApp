@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
 import BackgroundColorChangeView from '@src/components/animations/BackgroundChangeView';
-import { SafeContainer } from '@src/components/atoms';
+import SlideY from '@src/components/animations/SlideY';
+import { SafeContainer, Typo } from '@src/components/atoms';
 import WaveView from '@src/components/atoms/WaveView';
 
 import { colors } from '@src/constants';
@@ -10,7 +11,7 @@ import { colors } from '@src/constants';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
-const { width: windowWidth } = Dimensions.get('window');
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
   const [isOn, setIsOn] = useState<boolean>(false);
   const [isReverse, setIsReverse] = useState<boolean>(false);
@@ -18,7 +19,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
     setTimeout(() => {
       setIsOn(false);
       setIsReverse(true);
-    }, 3000);
+    }, 10000);
   };
 
   return (
@@ -37,7 +38,55 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           isReverse={isReverse}
           changedBackgroundColors={[colors.PRIMARY3, colors.GRAY1]}
           reverseChangedBackgroundColors={[colors.GRAY1, colors.PRIMARY3]}
-        />
+        >
+          <View style={[styles.logoText]}>
+            <SlideY
+              direction="T"
+              isOn={isOn}
+              delay={1650}
+              initialValue={0}
+              initialPosition={0}
+              destination={10000}
+              positionStyle={[]}
+            >
+              <Typo type="H1">S</Typo>
+            </SlideY>
+            <SlideY
+              direction="T"
+              isOn={isOn}
+              delay={1720}
+              initialValue={0}
+              initialPosition={0}
+              destination={10000}
+              positionStyle={[]}
+            >
+              <Typo type="H2">L</Typo>
+            </SlideY>
+            <SlideY
+              direction="T"
+              isOn={isOn}
+              delay={1600}
+              initialValue={0}
+              initialPosition={0}
+              destination={10000}
+              positionStyle={[]}
+            >
+              <Typo type="H2">M</Typo>
+            </SlideY>
+          </View>
+          <SlideY
+            direction="T"
+            isOn={isOn}
+            delay={1500}
+            initialValue={0}
+            initialPosition={0}
+            destination={10000}
+          >
+            <View style={[styles.bar]}>
+              <View style={[styles.circleMaker]} />
+            </View>
+          </SlideY>
+        </BackgroundColorChangeView>
       </WaveView>
     </SafeContainer>
   );
@@ -66,25 +115,38 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 300,
   },
-  card: {
+  bar: {
     borderRadius: 20,
-    backgroundColor: 'white',
+    backgroundColor: colors.PRIMARY3,
     width: windowWidth - 40,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 20,
+    height: 20,
+    position: 'relative',
+    overflow: 'hidden',
   },
+  circleMaker: {
+    borderRadius: 100,
 
-  slideIn: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 4,
-      height: 10,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 8.12,
-    elevation: 16,
+    width: windowWidth * 2,
+    height: windowHeight * 2,
+
+    position: 'absolute',
+    backgroundColor: 'white',
+    bottom: 0,
+  },
+  card: {
+    borderRadius: 20,
+    backgroundColor: colors.GRAY1,
+    width: windowWidth - 40,
+    height: windowHeight - 100,
+  },
+  logoText: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
