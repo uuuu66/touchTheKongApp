@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 
 import BackgroundColorChangeView from '@src/components/animations/BackgroundChangeView';
 import SlideY from '@src/components/animations/SlideY';
@@ -49,7 +49,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
               destination={10000}
               positionStyle={[]}
             >
-              <Typo type="H1">S</Typo>
+              <Typo type="H1" style={[styles.text]}>
+                S
+              </Typo>
             </SlideY>
             <SlideY
               direction="T"
@@ -60,7 +62,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
               destination={10000}
               positionStyle={[]}
             >
-              <Typo type="H2">L</Typo>
+              <Typo type="H2" style={[styles.text]}>
+                L
+              </Typo>
             </SlideY>
             <SlideY
               direction="T"
@@ -71,7 +75,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
               destination={10000}
               positionStyle={[]}
             >
-              <Typo type="H2">M</Typo>
+              <Typo type="H2" style={[styles.text]}>
+                M
+              </Typo>
             </SlideY>
           </View>
           <SlideY
@@ -93,6 +99,9 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
 };
 
 const styles = StyleSheet.create({
+  text: {
+    color: colors.PRIMARY3,
+  },
   topContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -122,19 +131,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 20,
+    height: 60,
     position: 'relative',
     overflow: 'hidden',
   },
   circleMaker: {
-    borderRadius: 100,
-
+    borderRadius: windowWidth * 2,
     width: windowWidth * 2,
-    height: windowHeight * 2,
-
+    height: windowWidth * 2,
     position: 'absolute',
     backgroundColor: 'white',
-    bottom: 0,
+    top: 20,
   },
   card: {
     borderRadius: 20,
