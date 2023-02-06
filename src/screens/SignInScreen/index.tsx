@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import BackgroundColorChangeView from '@src/components/animations/BackgroundChangeView';
 import SlideY from '@src/components/animations/SlideY';
 import { SafeContainer, Typo } from '@src/components/atoms';
+import AnimatedLogo from '@src/components/atoms/Logo/AnimatedLogo';
 import WaveView from '@src/components/atoms/WaveView';
 
 import { colors } from '@src/constants';
@@ -88,15 +89,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
             initialPosition={0}
             destination={10000}
           >
-            <BackgroundColorChangeView
-              isOn={isOn}
-              isReverse={isReverse}
-              changedBackgroundColors={[colors.PRIMARY3, colors.GRAY1]}
-              reverseChangedBackgroundColors={[colors.GRAY1, colors.PRIMARY3]}
-              style={[styles.bar]}
-            >
-              <View style={[styles.circleMaker]} />
-            </BackgroundColorChangeView>
+            <AnimatedLogo isOn={isOn} isReverse={isReverse} />
           </SlideY>
         </BackgroundColorChangeView>
       </WaveView>
