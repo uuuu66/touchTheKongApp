@@ -88,9 +88,15 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
             initialPosition={0}
             destination={10000}
           >
-            <View style={[styles.bar]}>
+            <BackgroundColorChangeView
+              isOn={isOn}
+              isReverse={isReverse}
+              changedBackgroundColors={[colors.PRIMARY3, colors.GRAY1]}
+              reverseChangedBackgroundColors={[colors.GRAY1, colors.PRIMARY3]}
+              style={[styles.bar]}
+            >
               <View style={[styles.circleMaker]} />
-            </View>
+            </BackgroundColorChangeView>
           </SlideY>
         </BackgroundColorChangeView>
       </WaveView>
@@ -125,7 +131,7 @@ const styles = StyleSheet.create({
     width: 300,
   },
   bar: {
-    borderRadius: 20,
+    borderRadius: 40,
     backgroundColor: colors.PRIMARY3,
     width: windowWidth - 40,
     flexDirection: 'column',
@@ -140,8 +146,8 @@ const styles = StyleSheet.create({
     width: windowWidth * 2,
     height: windowWidth * 2,
     position: 'absolute',
-    backgroundColor: 'white',
-    top: 20,
+    backgroundColor: colors.PRIMARY3,
+    bottom: 0,
   },
   card: {
     borderRadius: 20,
