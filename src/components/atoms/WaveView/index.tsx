@@ -7,17 +7,17 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
 import OceanWave from '@src/components/animations/OceanWave';
 
 import { colors } from '@src/constants';
-import { RootStackParams, useScreenRoute } from '@src/navigations';
+import { useScreenRoute } from '@src/navigations';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
-  actionAfterAnimation?: (e: {
-    message: RouteProp<RootStackParams, keyof RootStackParams>;
-  }) => void;
+  actionAfterAnimation?: () => void;
+  onPress?: () => void;
+  isReverse?: boolean;
+  isOn?: boolean;
 }
 
 const divWidth = 670;
@@ -35,14 +35,22 @@ const waveBorderRadius = {
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 const WaveView: FunctionComponent<Props> = function WaveView(props) {
-  const [isOn, setIsOn] = useState<boolean>(false);
+  const {
+    style,
+    children,
+    actionAfterAnimation,
+    isOn = false,
+    isReverse = false,
+    onPress,
+  } = props;
+
   const [isRender, setIsRender] = useState<boolean>(true);
-  const { style, children, actionAfterAnimation } = props;
+
   const route = useScreenRoute();
   const wave1Position = useMemo<StyleProp<ViewStyle>>(
     () => ({
       position: 'absolute',
-      left: '40%',
+      left: '50%',
       bottom: '45%',
     }),
     [],
@@ -50,7 +58,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
   const wave1BorderPosition = useMemo<StyleProp<ViewStyle>>(() => {
     return {
       position: 'absolute',
-      left: '30%',
+      left: '40%',
       bottom: '45%',
     };
   }, []);
@@ -66,7 +74,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
     () => ({
       position: 'absolute',
       right: '40%',
-      bottom: '45%',
+      bottom: '44%',
     }),
     [],
   );
@@ -88,20 +96,20 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
   );
   useEffect(() => {
     if (isOn) {
-      if (actionAfterAnimation) actionAfterAnimation({ message: route });
+      if (actionAfterAnimation) actionAfterAnimation();
       setTimeout(() => {
         setIsRender(false);
       }, 1000);
     }
   }, [isOn, actionAfterAnimation, route]);
+  useEffect(() => {
+    if (isReverse) {
+      setIsRender(true);
+    }
+  }, [isReverse]);
 
   return (
-    <Pressable
-      onPress={() => {
-        setIsOn(true);
-      }}
-      style={{ backgroundColor: colors.PRIMARY1 }}
-    >
+    <Pressable onPress={onPress} style={{ backgroundColor: colors.PRIMARY1 }}>
       <View
         style={[
           {
@@ -120,6 +128,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             isOn={isOn}
             direction="TR"
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave1BorderPosition}
             style={[
               styles.waveBorder,
@@ -133,6 +142,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             isOn={isOn}
             direction="TR"
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave1Position}
             style={[styles.wave, { backgroundColor: 'red' }]}
           />
@@ -141,6 +151,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             isOn={isOn}
             direction="TL"
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave2BorderPosition}
             style={[styles.waveBorder]}
           />
@@ -148,6 +159,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             isOn={isOn}
             direction="TL"
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave2Position}
             style={[styles.wave, { backgroundColor: 'yellow' }]}
           />
@@ -156,6 +168,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             direction="BR"
             isOn={isOn}
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave3BorderPosition}
             style={[
               styles.waveBorder,
@@ -166,6 +179,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             direction="BR"
             isOn={isOn}
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave3Position}
             style={[
               styles.wave,
@@ -176,6 +190,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             direction="BL"
             isOn={isOn}
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave4BorderPosition}
             style={[styles.waveBorder]}
           />
@@ -183,6 +198,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
             direction="BL"
             isOn={isOn}
             initialValue={0}
+            isReverseOn={isReverse}
             positionStyle={wave4Position}
             style={[
               styles.wave,

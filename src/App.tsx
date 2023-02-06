@@ -14,7 +14,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { colors, themes } from '@src/constants';
 import useDynamicLink from './hooks/useDynamicLink';
 import useInitialize from './hooks/useInitialize';
-import HomeStackNavigator from './navigations/RootStackNavigator';
+import HomeStackNavigator from './navigations/HomeStackNavigator';
 
 const App: FunctionComponent = function App() {
   useInitialize();
@@ -31,6 +31,7 @@ const App: FunctionComponent = function App() {
       <NavigationContainer
         theme={{
           ...DefaultTheme,
+
           colors: { ...DefaultTheme.colors, background: colors.GRAY1 },
         }}
       >

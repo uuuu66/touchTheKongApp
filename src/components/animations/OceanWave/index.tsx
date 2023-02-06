@@ -7,17 +7,16 @@ interface Props {
   positionStyle?: StyleProp<ViewStyle>;
   initialValue: number;
   isOn?: boolean;
+  isReverseOn?: boolean;
   direction: Direction;
 }
 
 const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
-  const { initialValue, style, isOn, direction, positionStyle } = props;
+  const { initialValue, style, isOn, isReverseOn, direction, positionStyle } =
+    props;
   const animationValue = useRef(new Animated.Value(initialValue || 0)).current;
   const directionValue = useRef(new Animated.Value(initialValue || 0)).current;
-  const spin = animationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [`0deg`, `${360}deg`],
-  });
+  const reveseDirectionValue = useRef(new Animated.Value(0)).current;
   const directionPoints = useMemo<string>(() => {
     switch (direction) {
       case 'TR':
@@ -41,44 +40,78 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     }
   }, [direction]);
 
+  const spin = animationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [`0deg`, `${360}deg`],
+  });
+
   const locationX = directionValue.interpolate({
     inputRange: [0, 0.3, 0.7, 1],
     outputRange: [0, 300, 600, 2000],
   });
-  // const locationY = directionValue.interpolate({
-  //   inputRange: [0, 0.3, 0.7, 1],
-  //   outputRange: [
-  //     directionPoints[1] * 0,
-  //     directionPoints[1] * 300,
-  //     directionPoints[1] * 600,
-  //     directionPoints[1] * 2000,
-  //   ],
-  // });
+  const reverseLocationX = reveseDirectionValue.interpolate({
+    inputRange: [0, 0.3, 0.7, 1],
+    outputRange: [2000, 600, 300, 0],
+  });
+  const rotateAnim = Animated.loop(
+    Animated.timing(animationValue, {
+      toValue: 1,
+      duration: 5000,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }),
+  );
+
+  const translate = Animated.timing(directionValue, {
+    toValue: 1,
+    easing: Easing.elastic(1),
+    useNativeDriver: true,
+    duration: 1000,
+  });
+  const translateReverse = Animated.timing(reveseDirectionValue, {
+    toValue: 1,
+    easing: Easing.elastic(1),
+    useNativeDriver: true,
+    duration: 1000,
+  });
 
   useEffect(() => {
-    Animated.loop(
-      Animated.timing(animationValue, {
-        toValue: 1,
-        duration: 5000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    ).start();
-  }, [animationValue]);
-
+    rotateAnim.start();
+  }, [rotateAnim]);
   useEffect(() => {
     if (isOn) {
-      Animated.timing(directionValue, {
-        toValue: 1,
-        easing: Easing.cubic,
-        useNativeDriver: true,
-        duration: 1000,
-      }).start();
-      animationValue.stopAnimation();
+      translate.start();
     }
-  }, [isOn, directionValue, animationValue]);
+  }, [isOn, translate, animationValue]);
+  useEffect(() => {
+    if (isReverseOn) {
+      translateReverse.start();
+    }
+  }, [isReverseOn, translateReverse]);
 
-  return (
+  return isReverseOn ? (
+    <Animated.View
+      style={[
+        positionStyle,
+        {
+          position: 'absolute',
+          transform: [
+            { rotate: directionPoints },
+            { translateX: reverseLocationX },
+          ],
+        },
+      ]}
+    >
+      <Animated.View
+        style={[
+          style,
+          {
+            transform: [{ rotateZ: spin }],
+          },
+        ]}
+      />
+    </Animated.View>
+  ) : (
     <Animated.View
       style={[
         positionStyle,

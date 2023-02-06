@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export type RootStackParams = {
+export type HomeStackParmas = {
   Home: { message: string } | undefined;
   SignIn: { message: string } | undefined;
   SignUp: { message: string } | undefined;
@@ -22,11 +22,11 @@ export type MainTabParams = {
   My: { message: string } | undefined;
 };
 
-export type RootStackNavigationProp =
-  NativeStackNavigationProp<RootStackParams>;
+export type HomeStackNavigationProp =
+  NativeStackNavigationProp<HomeStackParmas>;
 
 export type MainTabNavigationProp = CompositeNavigationProp<
-  RootStackNavigationProp,
+  HomeStackNavigationProp,
   BottomTabNavigationProp<MainTabParams>
 >;
 export type FeedStackNavigationProp =

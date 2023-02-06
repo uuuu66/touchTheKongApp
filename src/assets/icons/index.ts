@@ -13,6 +13,7 @@ import APP_LOGO from './logo.png';
 import NAVER_FILL_ACTIVATED from './naver-fill-activated.png';
 import NAVER_FILL_INACTIVATED from './naver-fill-inactivated.png';
 import NAVER from './naver.png';
+import PINK from './pink.png';
 
 export default {
   APP_LOGO,
@@ -30,4 +31,5 @@ export default {
   APPLE_FILL_ACTIVATED,
   APPLE_FILL_INACTIVATED,
   CAMERA,
+  PINK,
 } as const;

@@ -11,9 +11,9 @@ import HomeScreen from '@src/screens/FeedScreen';
 import SignInScreen from '@src/screens/SignInScreen';
 import SignUpScreen from '@src/screens/SignUpScreen';
 import MainTabNavigator from '../MainTabNavigator';
-import { RootStackParams } from '../types';
+import { HomeStackParmas } from '../types';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
+const Stack = createNativeStackNavigator<HomeStackParmas>();
 
 const RootStackNavigator: FunctionComponent = function RootStackNavigator() {
   const renderHeader = useCallback(
