@@ -16,6 +16,7 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
   const [isOn, setIsOn] = useState<boolean>(false);
   const [isReverse, setIsReverse] = useState<boolean>(false);
+
   const actionAfterAnimation = () => {
     setTimeout(() => {
       setIsOn(false);
@@ -64,7 +65,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
               positionStyle={[]}
             >
               <Typo type="H2" style={[styles.text]}>
-                L
+                M
               </Typo>
             </SlideY>
             <SlideY
@@ -77,7 +78,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
               positionStyle={[]}
             >
               <Typo type="H2" style={[styles.text]}>
-                M
+                A
               </Typo>
             </SlideY>
           </View>

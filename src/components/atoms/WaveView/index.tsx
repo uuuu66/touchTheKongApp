@@ -41,6 +41,7 @@ const WaveView: FunctionComponent<Props> = function WaveView(props) {
     actionAfterAnimation,
     isOn = false,
     isReverse = false,
+
     onPress,
   } = props;
 

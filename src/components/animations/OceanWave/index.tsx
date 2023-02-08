@@ -8,15 +8,18 @@ interface Props {
   initialValue: number;
   isOn?: boolean;
   isReverseOn?: boolean;
+
   direction: Direction;
 }
 
 const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
   const { initialValue, style, isOn, isReverseOn, direction, positionStyle } =
     props;
-  const animationValue = useRef(new Animated.Value(initialValue || 0)).current;
+  const rotationValue = useRef(new Animated.Value(initialValue || 0)).current;
+  const animationValue = useRef(new Animated.Value(initialValue || 1)).current;
   const directionValue = useRef(new Animated.Value(initialValue || 0)).current;
   const reveseDirectionValue = useRef(new Animated.Value(0)).current;
+
   const directionPoints = useMemo<string>(() => {
     switch (direction) {
       case 'TR':
@@ -40,7 +43,7 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     }
   }, [direction]);
 
-  const spin = animationValue.interpolate({
+  const spin = rotationValue.interpolate({
     inputRange: [0, 1],
     outputRange: [`0deg`, `${360}deg`],
   });
@@ -54,7 +57,7 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     outputRange: [2000, 600, 300, 0],
   });
   const rotateAnim = Animated.loop(
-    Animated.timing(animationValue, {
+    Animated.timing(rotationValue, {
       toValue: 1,
       duration: 5000,
       easing: Easing.linear,
@@ -74,15 +77,26 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     useNativeDriver: true,
     duration: 1000,
   });
-
+  const initialTranslate = Animated.timing(directionValue, {
+    toValue: 0,
+    easing: Easing.elastic(1),
+    useNativeDriver: true,
+    duration: 1000,
+  });
   useEffect(() => {
-    rotateAnim.start();
-  }, [rotateAnim]);
+    translate.start();
+    setTimeout(() => {
+      Animated.sequence([initialTranslate, rotateAnim]).start();
+    }, 1000);
+
+    // translate.start();
+  }, [rotateAnim, initialTranslate, translate]);
   useEffect(() => {
     if (isOn) {
       translate.start();
     }
   }, [isOn, translate, animationValue]);
+
   useEffect(() => {
     if (isReverseOn) {
       translateReverse.start();
