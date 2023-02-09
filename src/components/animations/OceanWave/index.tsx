@@ -49,8 +49,8 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
   });
 
   const locationX = directionValue.interpolate({
-    inputRange: [0, 0.3, 0.7, 1],
-    outputRange: [0, 300, 600, 2000],
+    inputRange: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 0.9, 1],
+    outputRange: [2000, 1400, 900, 600, 300, 0, 300, 600, 2000],
   });
   const reverseLocationX = reveseDirectionValue.interpolate({
     inputRange: [0, 0.3, 0.7, 1],
@@ -78,16 +78,15 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     duration: 1000,
   });
   const initialTranslate = Animated.timing(directionValue, {
-    toValue: 0,
+    toValue: 0.5,
     easing: Easing.elastic(1),
     useNativeDriver: true,
-    duration: 1000,
+    delay: 500,
+    duration: 2000,
   });
   useEffect(() => {
-    translate.start();
-    setTimeout(() => {
-      Animated.sequence([initialTranslate, rotateAnim]).start();
-    }, 1000);
+    initialTranslate.start();
+    rotateAnim.start();
 
     // translate.start();
   }, [rotateAnim, initialTranslate, translate]);

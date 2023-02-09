@@ -15,11 +15,12 @@ interface Props {
   afterRotateDeg?: string;
 }
 
-const SlideY: FunctionComponent<Props> = function SlideY(props) {
+const SlideX: FunctionComponent<Props> = function SlideX(props) {
   const {
     initialValue,
     children,
     isOn,
+
     positionStyle,
     destination,
     initialPosition,
@@ -79,9 +80,12 @@ const SlideY: FunctionComponent<Props> = function SlideY(props) {
         positionStyle,
         {
           transform: [
-            { translateY: viewLocation },
+            { translateX: viewLocation },
             { rotate: rocateAfterSlideIn },
           ],
+        },
+        {
+          position: 'absolute',
         },
       ]}
     >
@@ -90,4 +94,4 @@ const SlideY: FunctionComponent<Props> = function SlideY(props) {
   );
 };
 
-export default SlideY;
+export default SlideX;
