@@ -38,7 +38,7 @@ const TabButton: FunctionComponent<Props> = function TabButton({
   const labelStyle = getLabelStyle(type, disabled, isSelect);
 
   return (
-    <Pressable style={style} onPress={disabled ? onPress : undefined}>
+    <Pressable style={[style]} onPress={disabled ? onPress : undefined}>
       <View style={[styles.contents, contentsStyle]}>
         {icon && <Image source={icon} style={getIconStyle(size, true)} />}
         {label && <Typo style={labelStyle}>{label}</Typo>}

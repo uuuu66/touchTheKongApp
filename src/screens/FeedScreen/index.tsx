@@ -69,7 +69,8 @@ export default FeedScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 20,
+    // paddingBottom: 20,
+    padding: 0,
   },
   scrollView: {
     marginHorizontal: 20,

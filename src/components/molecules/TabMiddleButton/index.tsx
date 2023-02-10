@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import {
-  View,
   ImageSourcePropType,
   StyleProp,
   ViewStyle,
@@ -9,6 +8,7 @@ import {
   ImageStyle,
 } from 'react-native';
 import { Pressable } from '@src/components/atoms';
+
 import { colors } from '@src/constants';
 
 interface Props {
@@ -19,7 +19,6 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   contentsStyle?: StyleProp<ViewStyle>;
   onPress: () => void;
-  backgroundColor?: string;
 }
 
 const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
@@ -27,7 +26,7 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
   icon,
   style,
   windowWidth = 0,
-  backgroundColor = colors.BLUE,
+
   tabHeight = 0,
   contentsStyle,
   onPress,
@@ -40,41 +39,28 @@ const TabMiddleButton: FunctionComponent<Props> = function TabMiddleButton({
     backgroundColor: colors.GRAY1,
     width: tabHeight,
     height: tabHeight,
+    borderTopColor: 'black',
 
     transform: [{ rotate: '90deg' }],
   };
-  const ButtonBackGroundStyle: StyleProp<ViewStyle> = {
-    backgroundColor,
-    width: tabHeight + 20,
-    height: tabHeight + 20,
-  };
-  const ButtonBackGroundPositionStyle: StyleProp<ViewStyle> = {
-    top: (-1 * (tabHeight + 20)) / 2,
-    left: windowWidth / 2 - (tabHeight + 20) / 2,
-  };
+
   const IconStyle: StyleProp<ImageStyle> = {
     width: tabHeight / 1.5,
     height: tabHeight / 1.5,
   };
   return (
-    <>
-      <View
-        style={[
-          styles.container,
-          style,
-          ButtonBackGroundStyle,
-          ButtonBackGroundPositionStyle,
-        ]}
-      />
-      <Pressable
-        style={[styles.container, style, ButtonStyle, ButtonPositionStyle]}
-        onPress={disabled ? onPress : undefined}
-      >
-        <View style={[styles.wrapper, contentsStyle, ButtonStyle]}>
-          {icon && <Image source={icon} style={[IconStyle]} />}
-        </View>
-      </Pressable>
-    </>
+    <Pressable
+      style={[
+        styles.container,
+        style,
+        ButtonStyle,
+        ButtonPositionStyle,
+        contentsStyle,
+      ]}
+      onPress={disabled ? onPress : undefined}
+    >
+      {icon && <Image source={icon} style={[IconStyle]} />}
+    </Pressable>
   );
 };
 

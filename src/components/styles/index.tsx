@@ -13,4 +13,7 @@ const globalStyles = StyleSheet.create({
     elevation: 4,
   },
 });
+const { boxShadow } = globalStyles;
+export { boxShadow };
+
 export default globalStyles;
