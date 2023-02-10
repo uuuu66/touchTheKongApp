@@ -9,7 +9,8 @@ interface Props {
   duration?: number;
   destination?: number;
   isOn?: boolean;
-  resetTrigger?: any;
+
+  afterAnimFunc?: () => void;
 }
 
 const Fade: FunctionComponent<Props> = function Fade(props) {
@@ -22,7 +23,7 @@ const Fade: FunctionComponent<Props> = function Fade(props) {
     destination,
     delay = 300,
     duration = 1000,
-    resetTrigger,
+    afterAnimFunc,
   } = props;
   const animationValue = useRef(new Animated.Value(initialValue || 0)).current;
 
@@ -49,8 +50,13 @@ const Fade: FunctionComponent<Props> = function Fade(props) {
         delay,
         duration,
       }).start();
+      if (afterAnimFunc) {
+        setTimeout(() => {
+          afterAnimFunc();
+        }, delay + duration);
+      }
     }
-  }, [isOn, delay, animationValue, duration, resetTrigger]);
+  }, [isOn, delay, animationValue, duration, afterAnimFunc]);
 
   return (
     <Animated.View

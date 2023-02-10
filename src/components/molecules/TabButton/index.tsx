@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: colors.PRIMARY3,
+    backgroundColor: colors.GRAY1,
   },
 });
 

@@ -6,8 +6,6 @@ import {
 
 import CustomTab from '@src/components/atoms/Tab';
 import FeedScreen from '@src/screens/FeedStackScreen';
-
-import MapScreen from '@src/screens/MapScreen';
 import MyScreen from '@src/screens/MyScreen';
 import { MainTabParams } from '../types';
 
@@ -24,8 +22,7 @@ const MainTabNavigator = function MainTabNavigator() {
         onSelect={onSelect}
         items={[
           { label: '홈', value: 'Feed' },
-          { label: '지도', value: 'Map' },
-          { label: '인기', value: 'Famous' },
+
           { label: '마이', value: 'My' },
         ]}
       />
@@ -41,7 +38,6 @@ const MainTabNavigator = function MainTabNavigator() {
     >
       <Tab.Screen name={'Feed'} component={FeedScreen} />
       <Tab.Screen name={'My'} component={MyScreen} />
-      <Tab.Screen name={'Map'} component={MapScreen} />
     </Tab.Navigator>
   );
 };

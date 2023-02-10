@@ -18,22 +18,19 @@ import WaveView from '@src/components/atoms/WaveView';
 
 import globalStyles from '@src/components/styles';
 import { colors } from '@src/constants';
+import { useHomeScreenNavigation } from '@src/navigations';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const { width: windowWidth } = Dimensions.get('window');
 const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
+  const navigate = useHomeScreenNavigation();
   const [isOn, setIsOn] = useState<boolean>(false);
+  const [clickAvailable, setClickAvailable] = useState<boolean>(false);
 
   const [isReverse, setIsReverse] = useState<boolean>(false);
   const [stage, setStage] = useState<number>(-1);
-  const actionAfterAnimation = () => {
-    setTimeout(() => {
-      // setIsOn(false);
-      // setIsReverse(true);
-    }, 10000);
-  };
 
   const sentences: string[][] = useMemo(
     () => [
@@ -42,6 +39,7 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
     ],
     [],
   );
+
   const delays: number[][] = useMemo(() => {
     return [
       [2400, 0],
@@ -59,7 +57,6 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           delay={delays[0][stage]}
           initialValue={0}
           duration={1000}
-          resetTrigger={stage}
         >
           <Text>{sentences[stage][0] || ''}</Text>
         </Fade>
@@ -70,7 +67,6 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           delay={delays[1][stage]}
           initialValue={0}
           duration={1000}
-          resetTrigger={stage}
         >
           <Text>{sentences[stage][1] || ''}</Text>
         </Fade>
@@ -81,13 +77,25 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           delay={delays[2][stage]}
           initialValue={0}
           duration={1000}
-          resetTrigger={stage}
+          afterAnimFunc={() => {
+            setStage(prev => prev + 1);
+          }}
         >
           <Text>{sentences[stage][2] || ''}</Text>
         </Fade>
       </>
     );
   }, [stage, sentences, delays]);
+  useEffect(() => {
+    if (isReverse)
+      setTimeout(() => {
+        setIsReverse(false);
+        setIsOn(true);
+        setTimeout(() => {
+          navigate.navigate('MainTab');
+        }, 2000);
+      }, 4000);
+  }, [isReverse, navigate]);
   useEffect(() => {
     if (isOn) {
       setStage(prev => prev + 1);
@@ -99,15 +107,23 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
       setIsReverse(true);
     }
   }, [stage, sentences]);
+  useEffect(() => {
+    setTimeout(() => {
+      setClickAvailable(true);
+    }, 2000);
+  }, []);
   return (
     <SafeContainer>
       <WaveView
         onPress={() => {
-          if (!isReverse) setIsOn(true);
+          if (clickAvailable)
+            if (stage < 0) {
+              setIsOn(true);
+              setClickAvailable(false);
+            }
         }}
         isOn={isOn}
         isReverse={isReverse}
-        actionAfterAnimation={actionAfterAnimation}
       >
         <BackgroundColorChangeView
           style={[styles.topContainer]}
@@ -163,24 +179,36 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
           >
             <AnimatedLogo isOn={isOn} isReverse={isReverse} />
           </SlideY>
-
-          <Fade
-            style={[globalStyles.boxShadow, { position: 'absolute', top: 40 }]}
-            isIn
-            isOn={stage === 0}
-            delay={2000}
+          <SlideY
+            isOn={stage >= sentences.length}
+            delay={100}
             initialValue={0}
-            duration={1000}
+            initialPosition={0}
+            positionStyle={[{ position: 'absolute', top: 40 }]}
+            destination={-1000}
           >
-            <Pressable
-              style={[styles.card]}
-              onPress={() => {
-                if (stage < sentences.length) setStage(prev => prev + 1);
+            <Fade
+              style={[globalStyles.boxShadow]}
+              isIn
+              isOn={stage === 0}
+              delay={2000}
+              initialValue={0}
+              duration={1000}
+              afterAnimFunc={() => {
+                setClickAvailable(false);
               }}
             >
-              {stage >= 0 && stage < sentences.length && renderSentences()}
-            </Pressable>
-          </Fade>
+              <Pressable
+                style={[styles.card]}
+                onPress={() => {
+                  if (clickAvailable)
+                    if (stage < sentences.length) setStage(prev => prev + 1);
+                }}
+              >
+                {stage >= 0 && stage < sentences.length && renderSentences()}
+              </Pressable>
+            </Fade>
+          </SlideY>
         </BackgroundColorChangeView>
       </WaveView>
     </SafeContainer>

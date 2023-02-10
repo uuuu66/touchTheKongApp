@@ -10,11 +10,22 @@ interface Props {
   isReverseOn?: boolean;
 
   direction: Direction;
+  afterAnimFunc?: () => void;
+  afterReverseAnimFunc?: () => void;
 }
 
 const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
-  const { initialValue, style, isOn, isReverseOn, direction, positionStyle } =
-    props;
+  const {
+    initialValue,
+    style,
+    isOn,
+    isReverseOn,
+    direction,
+    positionStyle,
+    afterAnimFunc,
+    afterReverseAnimFunc,
+  } = props;
+
   const rotationValue = useRef(new Animated.Value(initialValue || 0)).current;
   const animationValue = useRef(new Animated.Value(initialValue || 1)).current;
   const directionValue = useRef(new Animated.Value(initialValue || 0)).current;
@@ -85,22 +96,41 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     duration: 2000,
   });
   useEffect(() => {
-    initialTranslate.start();
-    rotateAnim.start();
+    if (!isReverseOn) {
+      initialTranslate.start();
+      rotateAnim.start();
+    }
 
     // translate.start();
-  }, [rotateAnim, initialTranslate, translate]);
+  }, [rotateAnim, isReverseOn, initialTranslate, translate]);
   useEffect(() => {
     if (isOn) {
       translate.start();
+      if (afterAnimFunc) {
+        setTimeout(() => afterAnimFunc(), 1000);
+      }
     }
-  }, [isOn, translate, animationValue]);
+  }, [isOn, translate, animationValue, afterAnimFunc]);
 
   useEffect(() => {
     if (isReverseOn) {
       translateReverse.start();
+      rotateAnim.start();
+      directionValue.setValue(0.5);
+
+      if (afterReverseAnimFunc) {
+        setTimeout(() => {
+          afterReverseAnimFunc();
+        }, 1000);
+      }
     }
-  }, [isReverseOn, translateReverse]);
+  }, [
+    isReverseOn,
+    translateReverse,
+    rotateAnim,
+    directionValue,
+    afterReverseAnimFunc,
+  ]);
 
   return isReverseOn ? (
     <Animated.View

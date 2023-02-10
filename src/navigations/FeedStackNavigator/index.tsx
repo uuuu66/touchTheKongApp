@@ -8,9 +8,9 @@ import Header from '@src/components/atoms/Header';
 
 import HomeScreen from '@src/screens/FeedScreen';
 
-import { RootStackParams } from '../types';
+import { HomeStackParmas } from '../types';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
+const Stack = createNativeStackNavigator<HomeStackParmas>();
 
 const FeedStackNavigator: FunctionComponent = function FeedStackNavigator() {
   const renderHeader = useCallback(
