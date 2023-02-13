@@ -58,25 +58,33 @@ export const getLabelTypo = (size?: ButtonSize) => {
   return 'BUTTON1';
 };
 
-export const getLabelStyle = (type?: ButtonType, disabled?: boolean) => {
+export const getLabelStyle = (
+  type?: ButtonType,
+  disabled?: boolean,
+  isSelect?: boolean,
+) => {
   const style: StyleProp<TextStyle> = {};
   switch (type) {
     case 'solid-primary':
       style.color = disabled ? colors.GRAY7 : colors.GRAY1;
+
       break;
     case 'solid-gray':
       style.color = disabled ? colors.GRAY7 : colors.GRAY10;
+
       break;
     case 'outline-primary':
       style.color = disabled ? colors.GRAY7 : colors.PRIMARY3;
+
       break;
     case 'outline-gray':
       style.color = disabled ? colors.GRAY7 : colors.GRAY10;
+
       break;
     default:
       break;
   }
-
+  if (isSelect) style.color = disabled ? colors.GRAY7 : colors.PRIMARY3;
   return style;
 };
 
