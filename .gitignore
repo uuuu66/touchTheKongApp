@@ -60,3 +60,7 @@ buck-out/
 /ios/Pods/
 
 /react-native-boilerplate.wiki/
+
+.env
+.env.development
+.env.production
