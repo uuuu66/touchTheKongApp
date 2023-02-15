@@ -1,9 +1,11 @@
-interface SgError {
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface ErrorRes {
   response?: { data: { error: string; message: string; statusCode: number } };
 }
 
 export default class HttpError {
-  constructor(err: SgError) {
+  constructor(err: any) {
     if (err) {
       const { response } = err;
       if (response) {

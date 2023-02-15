@@ -55,8 +55,8 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
   }, [direction]);
 
   const spin = rotationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [`0deg`, `${360}deg`],
+    inputRange: [0.0, 1.0],
+    outputRange: ['0deg', '360deg'],
   });
 
   const locationX = directionValue.interpolate({
@@ -67,14 +67,12 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     inputRange: [0, 0.3, 0.7, 1],
     outputRange: [2000, 600, 300, 0],
   });
-  const rotateAnim = Animated.loop(
-    Animated.timing(rotationValue, {
-      toValue: 1,
-      duration: 5000,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }),
-  );
+  const rotateAnim = Animated.timing(rotationValue, {
+    toValue: 1.0,
+    duration: 8000,
+    easing: Easing.linear,
+    useNativeDriver: true,
+  });
 
   const translate = Animated.timing(directionValue, {
     toValue: 1,
@@ -93,16 +91,16 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     easing: Easing.elastic(1),
     useNativeDriver: true,
     delay: 500,
-    duration: 2000,
+    duration: 1000,
   });
   useEffect(() => {
     if (!isReverseOn) {
-      initialTranslate.start();
-      rotateAnim.start();
+      Animated.sequence([initialTranslate]).start();
+      Animated.loop(rotateAnim).start();
     }
 
     // translate.start();
-  }, [rotateAnim, isReverseOn, initialTranslate, translate]);
+  }, [isReverseOn, initialTranslate, rotateAnim]);
   useEffect(() => {
     if (isOn) {
       translate.start();
@@ -115,7 +113,7 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
   useEffect(() => {
     if (isReverseOn) {
       translateReverse.start();
-      rotateAnim.start();
+
       directionValue.setValue(0.5);
 
       if (afterReverseAnimFunc) {
@@ -124,13 +122,7 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
         }, 1000);
       }
     }
-  }, [
-    isReverseOn,
-    translateReverse,
-    rotateAnim,
-    directionValue,
-    afterReverseAnimFunc,
-  ]);
+  }, [isReverseOn, translateReverse, directionValue, afterReverseAnimFunc]);
 
   return isReverseOn ? (
     <Animated.View
@@ -158,8 +150,10 @@ const OceanWave: FunctionComponent<Props> = function OceanWave(props) {
     <Animated.View
       style={[
         positionStyle,
+
         {
           position: 'absolute',
+
           transform: [{ rotate: directionPoints }, { translateX: locationX }],
         },
       ]}
