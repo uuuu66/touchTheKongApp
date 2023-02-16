@@ -8,6 +8,7 @@ import React, {
 import { Dimensions, Pressable, StyleSheet, View } from 'react-native';
 
 import { Text } from '@rneui/base';
+
 import BackgroundColorChangeView from '@src/components/animations/BackgroundChangeView';
 import Fade from '@src/components/animations/Fade';
 
