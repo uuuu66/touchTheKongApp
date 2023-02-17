@@ -15,24 +15,27 @@ axios.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
+    console.log(error);
     const httpError = new HttpError(error);
 
     return Promise.reject(httpError);
   },
 );
-
-const httpRequest = (
-  method: Method,
-  apiPath: string,
-  queryParams?: Record<string, any>,
-  body?: Record<string, any>,
-) => {
+interface HttpRequestArgs {
+  method: Method;
+  url: string;
+  query?: Record<string, any>;
+  body?: Record<string, any>;
+  param?: string;
+}
+const httpRequest = (args: HttpRequestArgs) => {
+  const { method, url, query, body, param } = args;
   return axios.request({
     baseURL: process.env.REACT_APP_ROOT_URL,
     method,
-    url: apiPath,
+    url: `${url}/${param || ''}`,
     timeout: 1000 * 10,
-    params: queryParams,
+    params: query,
     data: body,
   });
 };

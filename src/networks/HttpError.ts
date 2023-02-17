@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ErrorRes {
-  response?: { data: { error: string; message: string; statusCode: number } };
+  response?: {
+    data: { timeStamp: string; message: string; statusCode: number };
+  };
 }
 
 export default class HttpError {
@@ -11,8 +13,9 @@ export default class HttpError {
       if (response) {
         const { data } = response;
         if (data) {
-          const { error, message, statusCode = -1 } = data;
-          this.error = error;
+          console.log(data);
+          const { timestamp, message, statusCode = -1 } = data;
+          this.timeStamp = timestamp;
           this.status = statusCode;
           if (typeof message === 'string') {
             this.message = message;
@@ -31,5 +34,5 @@ export default class HttpError {
   message = '';
 
   // 오류 코드
-  error = '';
+  timeStamp = '';
 }

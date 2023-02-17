@@ -20,6 +20,7 @@ import WaveView from '@src/components/atoms/WaveView';
 import globalStyles from '@src/components/styles';
 import { colors } from '@src/constants';
 import { useHomeScreenNavigation } from '@src/navigations';
+import { signIn } from '@src/apis/auth';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
@@ -109,6 +110,13 @@ const SignInScreen: FunctionComponent<Props> = function SignInScreen() {
     }
   }, [stage, sentences]);
   useEffect(() => {
+    signIn({ password: '', phoneNumber: '' })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     setTimeout(() => {
       setClickAvailable(true);
     }, 2000);
